@@ -1,0 +1,5 @@
+Fehler beim Starten?
+GUI ist SWT, KEIN AWT oder SWING.
+
+Und nu?
+siehe: http://www.eclipse.org/swt/eclipse.php
