@@ -8,9 +8,11 @@ import jade.gui.GuiAgent;
 import jade.gui.GuiEvent;
 
 public class UserAgent extends GuiAgent{
+    transient protected UserAgentUI ui;
+    public static final int CALC_EVENT = 1001;
+    
     
     protected void setup(){
-        // Register the book-selling service in the yellow pages
         DFAgentDescription dfd = new DFAgentDescription();
         dfd.setName(getAID());
         ServiceDescription sd = new ServiceDescription();
@@ -23,6 +25,10 @@ public class UserAgent extends GuiAgent{
         catch (FIPAException fe) {
             fe.printStackTrace();
         }
+        
+        //ui
+        ui = new UserAgentUI(this);
+        ui.setVisible(true);
     }
     
     // Put agent clean-up operations here
@@ -37,8 +43,11 @@ public class UserAgent extends GuiAgent{
         System.out.println("UserAgent " + getAID().getName() + " terminating.");
     }
 
-    @Override
-    protected void onGuiEvent(GuiEvent arg0) {
-        // TODO Auto-generated method stub
+    protected void onGuiEvent(GuiEvent ge) {
+        System.out.println(ge.toString());
+    }
+    
+    public void calculate(Double val1, Double val2, String operation){
+        //
     }
 }

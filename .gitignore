@@ -1,8 +1,11 @@
-.settings
-bin
-
-.project
+.DS_Store
 .classpath
-AP*.txt
-MTP*.txt
+.project
+.pydevproject
+Config.*
 *.class
+
+
+.settings
+.svn
+bin
