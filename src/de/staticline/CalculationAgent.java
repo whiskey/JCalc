@@ -18,7 +18,7 @@ public abstract class CalculationAgent extends Agent {
         dfd.setName(getAID());
         ServiceDescription sd = new ServiceDescription();
         sd.setType("calculation_general");
-        sd.setName("Calculator");
+        sd.setName("calcAgent");
         dfd.addServices(sd);
         try {
             DFService.register(this, dfd);
@@ -29,6 +29,8 @@ public abstract class CalculationAgent extends Agent {
         // add behaviors
         addBehaviour(new OfferCalcService());
         addBehaviour(new DoCalcService());
+        
+        System.out.println("setup "+this.getName());
     }
     
     // Put agent clean-up operations here

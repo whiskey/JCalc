@@ -1,5 +1,4 @@
-Fehler beim Starten?
-GUI ist SWT, KEIN AWT oder SWING.
+A JADE-based calculator. 
 
-Und nu?
-siehe: http://www.eclipse.org/swt/eclipse.php
+See http://jade.tilab.com/ for more infos on JADE.
+Latest sources to this project at http://github.com/whiskey/JCalc/ 

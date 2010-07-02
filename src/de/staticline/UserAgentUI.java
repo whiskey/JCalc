@@ -41,6 +41,7 @@ public class UserAgentUI extends javax.swing.JFrame {
     private double val1 = 0.;
     private double val2 = 0.;
     private boolean commaSet = false;
+    private boolean firstKey = true;
     
     private static final String CALC_EVENT = "calculate";
     
@@ -148,37 +149,46 @@ public class UserAgentUI extends javax.swing.JFrame {
         val1=Double.valueOf(display.getText());
         display.setText("0");
         display.requestFocus();
+        firstKey = true;
     }
     
     private void thisKeyPressed(KeyEvent evt) {
         //System.out.println(evt.toString());
         if(evt.getKeyCode()>47 && evt.getKeyCode()<58){
             //0...9
+        	if(firstKey){
+        		display.setText("");
+        		firstKey = false;
+        	}
             display.setText(display.getText()+evt.getKeyChar());
         }else if(evt.getKeyCode()==43){
             //+
             JButton src = (JButton)evt.getSource();
             operation=src.getText();
-            val1=Integer.getInteger(display.getText());
+            val1=Double.parseDouble(display.getText());
             display.setText("0");
+            firstKey = true;
         }else if(evt.getKeyCode()==45){
             //-
             JButton src = (JButton)evt.getSource();
             operation=src.getText();
-            val1=Integer.getInteger(display.getText());
+            val1=Double.parseDouble(display.getText());
             display.setText("0");
+            firstKey = true;
         }else if(evt.getKeyCode()==42 || evt.getKeyCode()==88){
             //* && x
             JButton src = (JButton)evt.getSource();
             operation=src.getText();
-            val1=Integer.getInteger(display.getText());
+            val1=Double.parseDouble(display.getText());
             display.setText("0");
+            firstKey = true;
         }else if(evt.getKeyCode()==47){
             ///
             JButton src = (JButton)evt.getSource();
             operation=src.getText();
-            val1=Integer.getInteger(display.getText());
+            val1=Double.parseDouble(display.getText());
             display.setText("0");
+            firstKey = true;
         }else if(evt.getKeyCode()==8){
             //delete
             String updated = display.getText();
@@ -189,14 +199,16 @@ public class UserAgentUI extends javax.swing.JFrame {
             }
         }else if(evt.getKeyCode()==27 || evt.getKeyCode()==67){
             //esc && c
-            display.setText("");
+            display.setText("0");
             operation=null;
             val1=0;
             val2=0;
             commaSet=false;
+            firstKey = true;
         }else if(evt.getKeyCode()==10){
             //enter
-            val2=Integer.getInteger(display.getText());
+        	val1=Double.parseDouble(display.getText());
+            firstKey = true;
             calculate();
         }else if(evt.getKeyCode()==44 || evt.getKeyCode()==46){
             //, && .
