@@ -5,3 +5,7 @@ Latest sources to this project at http://github.com/whiskey/JCalc/
 
 my start parameters: (2 calculation agents each)
 -gui add1:de.staticline.AddAgent add2:de.staticline.AddAgent sub1:de.staticline.SubtractAgent sub2:de.staticline.SubtractAgent mul1:de.staticline.MultiplyAgent mul2:de.staticline.MultiplyAgent div1:de.staticline.DivisionAgent div2:de.staticline.DivisionAgent ua:de.staticline.UserAgent
+
+known issues:
++ calculator is running in a loop at max speed == 100% cpu usage
++ gui doesn't handle all bad input, be nice!

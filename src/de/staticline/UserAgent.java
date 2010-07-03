@@ -64,7 +64,7 @@ public class UserAgent extends GuiAgent{
         			requestedAgentType="addAgent";
         		}else if(operation=="-"){
         			requestedAgentType="subtractAgent";
-        		}else if(operation=="*"){
+        		}else if(operation=="x"){
         			requestedAgentType="multiplyAgent";
         		}else if(operation=="/"){
         			requestedAgentType="divisionAgent";
