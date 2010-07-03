@@ -1,6 +1,7 @@
 package de.staticline;
 
 import jade.core.Agent;
+import jade.core.behaviours.Behaviour;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.domain.DFService;
 import jade.domain.FIPAException;
@@ -10,14 +11,15 @@ import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 
 public abstract class CalculationAgent extends Agent {
-    protected static String agentOperation = "default";
+    protected String agentOperation = "calculation";
+    protected boolean delivered = false;
     
     protected void setup(){
         // Register the book-selling service in the yellow pages
         DFAgentDescription dfd = new DFAgentDescription();
         dfd.setName(getAID());
         ServiceDescription sd = new ServiceDescription();
-        sd.setType("calculation_general");
+        sd.setType(agentOperation);
         sd.setName("calcAgent");
         dfd.addServices(sd);
         try {
@@ -54,7 +56,6 @@ public abstract class CalculationAgent extends Agent {
                 // CFP Message received. Process it
                 String service = msg.getContent();
                 ACLMessage reply = msg.createReply();
-
                 if (service == agentOperation) {
                     // The requested book is available for sale. Reply with the price
                     reply.setPerformative(ACLMessage.PROPOSE);
@@ -75,17 +76,19 @@ public abstract class CalculationAgent extends Agent {
     
     private class DoCalcService extends CyclicBehaviour{
         public void action() {
-            MessageTemplate mt = MessageTemplate.MatchPerformative(ACLMessage.ACCEPT_PROPOSAL);
+            MessageTemplate mt = MessageTemplate.MatchPerformative(ACLMessage.REQUEST);
             ACLMessage msg = myAgent.receive(mt);
             if (msg != null) {
                 // ACCEPT_PROPOSAL Message received. Process it
-                String service = msg.getContent();
+            	String[] content = msg.getContent().split("\\s+");
+            	String operation = content[0];
+            	double v1 = Double.parseDouble(content[1]);
+            	double v2 = Double.parseDouble(content[2]);
                 ACLMessage reply = msg.createReply();
-
-                if (service == agentOperation) {
+                if (operation.matches(agentOperation)) {
                     reply.setPerformative(ACLMessage.INFORM);
-                    System.out.println(service + " done to agent " + msg.getSender().getName());
-                    reply.setContent(doCalculationJob(0, 0));
+                    //System.out.println(myAgent.getName()+": "+operation + " done for agent " + msg.getSender().getName());
+                    reply.setContent(doCalculationJob(v1, v2));
                 }
                 else {
                     // The requested book has been sold to another buyer in the meanwhile .
@@ -95,6 +98,7 @@ public abstract class CalculationAgent extends Agent {
                 myAgent.send(reply);
             }
         }
+
     }
     
     protected String doCalculationJob(double val1, double val2){

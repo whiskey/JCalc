@@ -207,8 +207,9 @@ public class UserAgentUI extends javax.swing.JFrame {
             firstKey = true;
         }else if(evt.getKeyCode()==10){
             //enter
-        	val1=Double.parseDouble(display.getText());
+        	val2=Double.parseDouble(display.getText());
             firstKey = true;
+            display.setText("0");
             calculate();
         }else if(evt.getKeyCode()==44 || evt.getKeyCode()==46){
             //, && .
@@ -226,6 +227,10 @@ public class UserAgentUI extends javax.swing.JFrame {
         ev.addParameter(val2);
         ev.addParameter(operation);
         myagent.postGuiEvent(ev);
+        //reset
+        val1 = 0;
+        val2 = 0;
+        operation = null;
     }
     
     public void setValue(String val){
